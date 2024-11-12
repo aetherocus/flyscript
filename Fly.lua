@@ -1,8 +1,6 @@
 local Flygui = Instance.new("ScreenGui")
 local Speed = Instance.new("TextLabel")
-
-local cloneref = cloneref or function(o) return o end
-COREGUI = cloneref(game:GetService("CoreGui"))
+local COREGUI = game:GetService("CoreGui")
 
 function randomString()
 	local length = math.random(10,20)
@@ -13,9 +11,21 @@ function randomString()
 	return table.concat(array)
 end
 
+if get_hidden_gui or gethui then
+	local hiddenUI = get_hidden_gui or gethui
+	Flygui.Name = randomString()
+	Flygui.Parent = hiddenUI()
+elseif (not is_sirhurt_closure) and (syn and syn.protect_gui) then
+	Flygui.Name = randomString()
+	syn.protect_gui(Flygui)
+	Flygui.Parent = COREGUI
+elseif COREGUI:FindFirstChild('RobloxGui') then
+	PARENT = COREGUI.RobloxGui
+else
+	Flygui.Name = randomString()
+	Flygui.Parent = COREGUI
+end
 
-Flygui.Name = randomString()
-Flygui.Parent = COREGUI
 Flygui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
 Speed.Name = "Speed"
