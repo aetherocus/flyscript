@@ -50,7 +50,7 @@ local function startFlying()
 	bodyGyro.Parent = rootPart
 	bodyVelocity.Parent = rootPart
 
-	humanoid.Sit = true 
+	humanoid.PlatformStand = true 
 end
 
 
@@ -60,7 +60,7 @@ local function stopFlying()
 
 	bodyGyro:Destroy()
 	bodyVelocity:Destroy()
-	humanoid.Sit = false  
+	humanoid.PlatformStand = false  
 end
 
 local function updateFlight()
