@@ -1,9 +1,21 @@
 local Flygui = Instance.new("ScreenGui")
 local Speed = Instance.new("TextLabel")
 
+local cloneref = cloneref or function(o) return o end
+COREGUI = cloneref(game:GetService("CoreGui"))
 
-Flygui.Name = "Flygui"
-Flygui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+function randomString()
+	local length = math.random(10,20)
+	local array = {}
+	for i = 1, length do
+		array[i] = string.char(math.random(32, 126))
+	end
+	return table.concat(array)
+end
+
+
+Flygui.Name = randomString()
+Flygui.Parent = COREGUI
 Flygui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
 Speed.Name = "Speed"
