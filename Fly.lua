@@ -33,7 +33,7 @@ Speed.TextScaled = true
 Speed.TextSize = 14.000
 Speed.TextWrapped = true
 
-local player = game.Players.LocalPlayer
+local player = game:GetService("Players").LocalPlayer
 local mouse = player:GetMouse()
 local character = player.Character or player.CharacterAdded:Wait()
 local humanoid = character:WaitForChild("Humanoid")
