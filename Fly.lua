@@ -21,7 +21,7 @@ end
 Flygui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
 Speed.Name = "Speed"
-Speed.Parent = Flygui
+Speed.Parent = PARENT
 Speed.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 Speed.BackgroundTransparency = 1.000
 Speed.BorderColor3 = Color3.fromRGB(0, 0, 0)
