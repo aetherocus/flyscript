@@ -18,8 +18,6 @@ else
 	PARENT = Flygui
 end
 
-Flygui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-
 Speed.Name = "Speed"
 Speed.Parent = PARENT
 Speed.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
