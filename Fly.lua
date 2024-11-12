@@ -15,7 +15,7 @@ Speed.BorderSizePixel = 0
 Speed.Position = UDim2.new(0, 0, 0.0804347843, 0)
 Speed.Size = UDim2.new(0.10080184, 0, 0.0673913062, 0)
 Speed.Font = Enum.Font.SourceSans
-Speed.Text = "0/s"
+Speed.Text = "0"
 Speed.TextColor3 = Color3.fromRGB(255, 255, 255)
 Speed.TextScaled = true
 Speed.TextSize = 14.000
@@ -91,7 +91,7 @@ uis.InputBegan:Connect(function(input: InputObject, gameProcessedEvent: boolean)
 	end
 end)
 game:GetService("RunService").RenderStepped:Connect(function()
-	Speed.Text = flySpeed .. "/s"
+	Speed.Text = flySpeed
 	if flying then
 		updateFlight()
 	end
