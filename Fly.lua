@@ -2,16 +2,20 @@ local Flygui = Instance.new("ScreenGui")
 local Speed = Instance.new("TextLabel")
 local COREGUI = game:GetService("CoreGui")
 
+PARENT = nil
 if get_hidden_gui or gethui then
 	local hiddenUI = get_hidden_gui or gethui
 	Flygui.Parent = hiddenUI()
+	PARENT = Flygui
 elseif (not is_sirhurt_closure) and (syn and syn.protect_gui) then
 	syn.protect_gui(Flygui)
 	Flygui.Parent = COREGUI
+	PARENT = Flygui
 elseif COREGUI:FindFirstChild('RobloxGui') then
 	PARENT = COREGUI.RobloxGui
 else
 	Flygui.Parent = COREGUI
+	PARENT = Flygui = Flygui
 end
 
 Flygui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
