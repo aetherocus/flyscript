@@ -2,27 +2,15 @@ local Flygui = Instance.new("ScreenGui")
 local Speed = Instance.new("TextLabel")
 local COREGUI = game:GetService("CoreGui")
 
-function randomString()
-	local length = math.random(10,20)
-	local array = {}
-	for i = 1, length do
-		array[i] = string.char(math.random(32, 126))
-	end
-	return table.concat(array)
-end
-
 if get_hidden_gui or gethui then
 	local hiddenUI = get_hidden_gui or gethui
-	Flygui.Name = randomString()
 	Flygui.Parent = hiddenUI()
 elseif (not is_sirhurt_closure) and (syn and syn.protect_gui) then
-	Flygui.Name = randomString()
 	syn.protect_gui(Flygui)
 	Flygui.Parent = COREGUI
 elseif COREGUI:FindFirstChild('RobloxGui') then
 	PARENT = COREGUI.RobloxGui
 else
-	Flygui.Name = randomString()
 	Flygui.Parent = COREGUI
 end
 
