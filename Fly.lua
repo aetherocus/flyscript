@@ -15,7 +15,7 @@ elseif COREGUI:FindFirstChild('RobloxGui') then
 	PARENT = COREGUI.RobloxGui
 else
 	Flygui.Parent = COREGUI
-	PARENT = Flygui = Flygui
+	PARENT = Flygui
 end
 
 Flygui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
