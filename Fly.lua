@@ -48,7 +48,6 @@ local bodyVelocity
 
 local function startFlying()
 	if flying then return end
-	flying = true
 
 	bodyGyro = Instance.new("BodyGyro")
 	bodyVelocity = Instance.new("BodyVelocity")
@@ -67,7 +66,6 @@ end
 
 local function stopFlying()
 	if not flying then return end
-	flying = false
 
 	bodyGyro:Destroy()
 	bodyVelocity:Destroy()
@@ -75,7 +73,6 @@ end
 
 local function updateFlight()
 	if not flying then return end
-
 
 	local targetPosition = mouse.Hit.p
 	local direction = (targetPosition - rootPart.Position).unit
