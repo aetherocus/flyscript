@@ -2,8 +2,7 @@ local Flygui = Instance.new("ScreenGui")
 local Speed = Instance.new("TextLabel")
 local COREGUI = game:GetService("CoreGui")
 
-PARENT = nil
-
+local PARENT = nil
 if get_hidden_gui or gethui then
 	local hiddenUI = get_hidden_gui or gethui
 	Flygui.Parent = hiddenUI()
@@ -110,7 +109,4 @@ game:GetService("RunService").RenderStepped:Connect(function()
 	end
 end)
 
-humanoid.Died:Connect(function())
-   Flygui:Destroy()
-end
 -- freaky ass nigga hes 69 god
