@@ -1,6 +1,7 @@
 local Flygui = Instance.new("ScreenGui")
 local Speed = Instance.new("TextLabel")
 local COREGUI = game:GetService("CoreGui")
+local uis = game:GetService("UserInputService")
 
 PARENT = nil
 if get_hidden_gui or gethui then
@@ -43,6 +44,10 @@ local flySpeed = 50
 
 local bodyGyro
 local bodyVelocity
+
+player.CharacterAdded:Connect(function())
+	Flygui:Destroy()
+end
 	
 local function startFlying()
 	if flying then return end
