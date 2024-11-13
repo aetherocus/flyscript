@@ -1,7 +1,7 @@
 local Flygui = Instance.new("ScreenGui")
 local Speed = Instance.new("TextLabel")
 local COREGUI = game:GetService("CoreGui")
-local uis = game:GetService("UserInputService")
+
 
 PARENT = nil
 if get_hidden_gui or gethui then
@@ -39,6 +39,7 @@ local mouse = player:GetMouse()
 local character = player.Character or player.CharacterAdded:Wait()
 local humanoid = character:WaitForChild("Humanoid")
 local rootPart = character:WaitForChild("HumanoidRootPart")
+local uis = game:GetService("UserInputService")
 local flying = false
 local flySpeed = 50
 
