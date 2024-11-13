@@ -95,13 +95,17 @@ local function toggle()
     end
 end
 
-ContextActionService:BindAction("fly", toggle, false, Enum.KeyCode.LeftAlt)
-ContextActionService:BindAction("speed0", function() 
-	flySpeed = flySpeed + 5
-	end, false, Enum.KeyCode.LeftBracket)
-ContextActionService:BindAction("speed1", function() 
-	flySpeed = flySpeed - 5
-	end, false, Enum.KeyCode.RightBracket)
+uis.InputBegan:Connect(function(input: InputObject, gameProcessedEvent: boolean) 
+	if gameProcessedEvent then return end
+
+	if input.KeyCode == Enum.KeyCode.LeftAlt then
+		toggle()
+	elseif input.KeyCode == Enum.KeyCode.LeftBracket then
+		flySpeed = flySpeed + 5
+	elseif input.KeyCode == Enum.KeyCode.RightBracket then
+		flySpeed = flySpeed - 5
+	end
+end)
 
 game:GetService("RunService").RenderStepped:Connect(function()
 	Speed.Text = flySpeed
