@@ -87,17 +87,19 @@ local function updateFlight()
 	bodyGyro.CFrame = CFrame.new(rootPart.Position, targetPosition)
 end
 
+local function toggle()
+    if flying then
+	stopFlying()
+    else
+	startFlying()
+    end
+end
+
 uis.InputBegan:Connect(function(input: InputObject, gameProcessedEvent: boolean) 
 	if gameProcessedEvent then return end
 
 	if input.KeyCode == Enum.KeyCode.LeftAlt then
-		return
-	elseif input.KeyCode == Enum.KeyCode.RightControl then
-		if flying then
-			stopFlying()
-		else
-			startFlying()
-		end
+		toggle()
 	elseif input.KeyCode == Enum.KeyCode.LeftBracket then
 		flySpeed = flySpeed + 5
 	elseif input.KeyCode == Enum.KeyCode.RightBracket then
