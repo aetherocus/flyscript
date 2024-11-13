@@ -38,7 +38,6 @@ local mouse = player:GetMouse()
 local character = player.Character or player.CharacterAdded:Wait()
 local humanoid = character:WaitForChild("Humanoid")
 local rootPart = character:WaitForChild("HumanoidRootPart")
-local uis = game:GetService("UserInputService")
 local cas = game:GetService("ContextActionService")
 local flying = false
 local flySpeed = 50
