@@ -2,12 +2,11 @@ local Flygui = Instance.new("ScreenGui")
 local Speed = Instance.new("TextLabel")
 local COREGUI = game:GetService("CoreGui")
 
-PARENT = nil
-Flygui.Parent = COREGUI
-PARENT = Flygui
+Flygui.Parent = game.Players.LocalPlayer.PlayerGui
+Flygui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
 Speed.Name = "Speed"
-Speed.Parent = PARENT
+Speed.Parent = Flygui
 Speed.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 Speed.BackgroundTransparency = 1.000
 Speed.BorderColor3 = Color3.fromRGB(0, 0, 0)
@@ -97,9 +96,6 @@ game:GetService("RunService").RenderStepped:Connect(function()
 	end
 end)
 
-Humanoid.Died:Connect(function())
-   PARENT:Destroy()
-end
 
 
 -- freaky ass nigga hes 69 god
