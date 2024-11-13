@@ -2,8 +2,6 @@ local Flygui = Instance.new("ScreenGui")
 local Speed = Instance.new("TextLabel")
 local COREGUI = game:GetService("CoreGui")
 
-local ContextActionService = game:GetService("ContextActionService")
-
 PARENT = nil
 if get_hidden_gui or gethui then
 	local hiddenUI = get_hidden_gui or gethui
@@ -94,17 +92,14 @@ local function toggle()
     end
 end
 
-ContextActionService:BindAction(Fly, toggle, false, Enum.KeyCode.LeftAlt)
+cas:BindAction(Fly, toggle, false, Enum.KeyCode.LeftAlt)
+cas:BindAction(speed0, function() 
+	flySpeed = flySpeed + 5
+	end, false, Enum.KeyCode.LeftBracket)
+cas:BindAction(speed1, function() 
+	flySpeed = flySpeed - 5
+	end, false, Enum.KeyCode.RightBracket)
 
-uis.InputBegan:Connect(function(input: InputObject, gameProcessedEvent: boolean) 
-	if gameProcessedEvent then return end
-		
-	if input.KeyCode == Enum.KeyCode.LeftBracket then
-		flySpeed = flySpeed + 5
-	elseif input.KeyCode == Enum.KeyCode.RightBracket then
-		flySpeed = flySpeed - 5
-	end
-end)
 game:GetService("RunService").RenderStepped:Connect(function()
 	Speed.Text = flySpeed
 	if flying then
