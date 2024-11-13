@@ -45,10 +45,6 @@ local flySpeed = 50
 
 local bodyGyro
 local bodyVelocity
-
-player.CharacterAdded:Connect(function())
-	Flygui:Destroy()
-end
 	
 local function startFlying()
 	if flying then return end
@@ -113,5 +109,9 @@ game:GetService("RunService").RenderStepped:Connect(function()
 	updateFlight()
 	end
 end)
+
+player.CharacterAdded:Connect(function())
+	Flygui:Destroy()
+end
 
 -- freaky ass nigga hes 69 god
