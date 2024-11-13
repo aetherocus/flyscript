@@ -45,6 +45,10 @@ local flySpeed = 50
 local bodyGyro
 local bodyVelocity
 
+humanoid.Died:Connect(function())
+    Flygui:Destroy()
+end)
+
 local function startFlying()
 	if flying then return end
 	flying = true
