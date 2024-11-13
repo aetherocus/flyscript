@@ -90,7 +90,7 @@ end
 uis.InputBegan:Connect(function(input: InputObject, gameProcessedEvent: boolean) 
 	if gameProcessedEvent then return end
 
-	if input.KeyCode == Enum.KeyCode.LeftAlt then
+	if input.KeyCode == Enum.KeyCode.RightControl then
 		if flying then
 			stopFlying()
 		else
