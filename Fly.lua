@@ -4,7 +4,6 @@ local COREGUI = game:GetService("CoreGui")
 
 PARENT = nil
 
-
 if get_hidden_gui or gethui then
 	local hiddenUI = get_hidden_gui or gethui
 	Flygui.Name = randomString()
@@ -22,8 +21,6 @@ else
 	Flygui.Parent = COREGUI
 	PARENT = Flygui
 end
-
-Flygui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
 Speed.Name = "Speed"
 Speed.Parent = PARENT
