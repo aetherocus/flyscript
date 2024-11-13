@@ -1,7 +1,6 @@
 local Flygui = Instance.new("ScreenGui")
 local Speed = Instance.new("TextLabel")
 local COREGUI = game:GetService("CoreGui")
-local ContextActionService = game:GetService("ContextActionService")
 
 PARENT = nil
 if get_hidden_gui or gethui then
@@ -62,7 +61,6 @@ local function startFlying()
 	bodyVelocity.Parent = rootPart
 
 end
-
 
 local function stopFlying()
 	if not flying then return end
