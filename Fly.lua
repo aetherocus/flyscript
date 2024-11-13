@@ -109,4 +109,8 @@ game:GetService("RunService").RenderStepped:Connect(function()
 		updateFlight()
 	end
 end)
+
+humanoid.Died:Connect(function())
+   Flygui:Destroy()
+end
 -- freaky ass nigga hes 69 god
