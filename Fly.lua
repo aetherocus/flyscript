@@ -18,7 +18,7 @@ else
 end
 
 Speed.Name = "Speed"
-Speed.Parent = PARENT
+Speed.Parent = Flygui
 Speed.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 Speed.BackgroundTransparency = 1.000
 Speed.BorderColor3 = Color3.fromRGB(0, 0, 0)
