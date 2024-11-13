@@ -1,6 +1,7 @@
 local Flygui = Instance.new("ScreenGui")
 local Speed = Instance.new("TextLabel")
 local COREGUI = game:GetService("CoreGui")
+local ContextActionService = game:GetService("ContextActionService")
 
 PARENT = nil
 if get_hidden_gui or gethui then
@@ -38,7 +39,6 @@ local mouse = player:GetMouse()
 local character = player.Character or player.CharacterAdded:Wait()
 local humanoid = character:WaitForChild("Humanoid")
 local rootPart = character:WaitForChild("HumanoidRootPart")
-local cas = game:GetService("ContextActionService")
 local flying = false
 local flySpeed = 50
 
@@ -91,11 +91,11 @@ local function toggle()
     end
 end
 
-cas:BindAction(Fly, toggle, false, Enum.KeyCode.LeftAlt)
-cas:BindAction(speed0, function() 
+ContextActionService:BindAction("fly", toggle, false, Enum.KeyCode.LeftAlt)
+ContextActionService:BindAction("speed0", function() 
 	flySpeed = flySpeed + 5
 	end, false, Enum.KeyCode.LeftBracket)
-cas:BindAction(speed1, function() 
+ContextActionService:BindAction("speed1", function() 
 	flySpeed = flySpeed - 5
 	end, false, Enum.KeyCode.RightBracket)
 
