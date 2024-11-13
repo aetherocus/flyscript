@@ -97,8 +97,8 @@ game:GetService("RunService").RenderStepped:Connect(function()
 	end
 end)
 
-player.CharacterAdded:Connect(function())
-   Flygui:Destroy()
+Humanoid.Died:Connect(function())
+   PARENT:Destroy()
 end
 
 
