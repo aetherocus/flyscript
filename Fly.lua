@@ -3,20 +3,24 @@ local Speed = Instance.new("TextLabel")
 local COREGUI = game:GetService("CoreGui")
 
 PARENT = nil
+
+
 if get_hidden_gui or gethui then
 	local hiddenUI = get_hidden_gui or gethui
+	Flygui.Name = randomString()
 	Flygui.Parent = hiddenUI()
-	PARENT = Flygui
 elseif (not is_sirhurt_closure) and (syn and syn.protect_gui) then
+	Flygui.Name = randomString()
 	syn.protect_gui(Flygui)
 	Flygui.Parent = COREGUI
-	PARENT = Flygui
 elseif COREGUI:FindFirstChild('RobloxGui') then
 	PARENT = COREGUI.RobloxGui
 else
+	Flygui.Name = randomString()
 	Flygui.Parent = COREGUI
-	PARENT = Flygui
 end
+
+Flygui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
 Speed.Name = "Speed"
 Speed.Parent = PARENT
@@ -33,18 +37,19 @@ Speed.TextScaled = true
 Speed.TextSize = 14.000
 Speed.TextWrapped = true
 
-local player = game:GetService("Players").LocalPlayer
+local player = game.Players.LocalPlayer
 local mouse = player:GetMouse()
 local character = player.Character or player.CharacterAdded:Wait()
 local humanoid = character:WaitForChild("Humanoid")
 local rootPart = character:WaitForChild("HumanoidRootPart")
 local uis = game:GetService("UserInputService")
+local cas = game:GetService("ContextActionService")
 local flying = false
 local flySpeed = 50
 
 local bodyGyro
 local bodyVelocity
-	
+
 local function startFlying()
 	if flying then return end
 	flying = true
@@ -61,7 +66,9 @@ local function startFlying()
 	bodyGyro.Parent = rootPart
 	bodyVelocity.Parent = rootPart
 
+	humanoid.PlatformStand = true 
 end
+
 
 local function stopFlying()
 	if not flying then return end
@@ -69,10 +76,12 @@ local function stopFlying()
 
 	bodyGyro:Destroy()
 	bodyVelocity:Destroy()
+	humanoid.PlatformStand = false  
 end
 
 local function updateFlight()
 	if not flying then return end
+
 
 	local targetPosition = mouse.Hit.p
 	local direction = (targetPosition - rootPart.Position).unit
@@ -82,35 +91,25 @@ local function updateFlight()
 	bodyGyro.CFrame = CFrame.new(rootPart.Position, targetPosition)
 end
 
-local function toggle()
-    if flying then
-	stopFlying()
-    else
-	startFlying()
-    end
-end
-
 uis.InputBegan:Connect(function(input: InputObject, gameProcessedEvent: boolean) 
 	if gameProcessedEvent then return end
 
 	if input.KeyCode == Enum.KeyCode.LeftAlt then
-		toggle()
+		if flying then
+			stopFlying()
+		else
+			startFlying()
+		end
 	elseif input.KeyCode == Enum.KeyCode.LeftBracket then
 		flySpeed = flySpeed + 5
 	elseif input.KeyCode == Enum.KeyCode.RightBracket then
 		flySpeed = flySpeed - 5
 	end
 end)
-
 game:GetService("RunService").RenderStepped:Connect(function()
 	Speed.Text = flySpeed
 	if flying then
-	updateFlight()
+		updateFlight()
 	end
 end)
-
-player.CharacterAdded:Connect(function())
-	Flygui:Destroy()
-end
-
 -- freaky ass nigga hes 69 god
