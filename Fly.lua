@@ -2,23 +2,12 @@ local Flygui = Instance.new("ScreenGui")
 local Speed = Instance.new("TextLabel")
 local COREGUI = game:GetService("CoreGui")
 
-if get_hidden_gui or gethui then
-	local hiddenUI = get_hidden_gui or gethui
-	Flygui.Parent = hiddenUI()
-	PARENT = Flygui
-elseif (not is_sirhurt_closure) and (syn and syn.protect_gui) then
-	syn.protect_gui(Flygui)
-	Flygui.Parent = COREGUI
-	PARENT = Flygui
-elseif COREGUI:FindFirstChild('RobloxGui') then
-	PARENT = COREGUI.RobloxGui
-else
-	Flygui.Parent = COREGUI
-	PARENT = Flygui
-end
+PARENT = nil
+Flygui.Parent = COREGUI
+PARENT = Flygui
 
 Speed.Name = "Speed"
-Speed.Parent = Flygui
+Speed.Parent = PARENT
 Speed.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 Speed.BackgroundTransparency = 1.000
 Speed.BorderColor3 = Color3.fromRGB(0, 0, 0)
