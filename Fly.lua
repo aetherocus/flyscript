@@ -6,18 +6,15 @@ PARENT = nil
 
 if get_hidden_gui or gethui then
 	local hiddenUI = get_hidden_gui or gethui
-	Flygui.Name = randomString()
 	Flygui.Parent = hiddenUI()
 	PARENT = Flygui
 elseif (not is_sirhurt_closure) and (syn and syn.protect_gui) then
-	Flygui.Name = randomString()
 	syn.protect_gui(Flygui)
 	Flygui.Parent = COREGUI
 	PARENT = Flygui
 elseif COREGUI:FindFirstChild('RobloxGui') then
 	PARENT = COREGUI.RobloxGui
 else
-	Flygui.Name = randomString()
 	Flygui.Parent = COREGUI
 	PARENT = Flygui
 end
