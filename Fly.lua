@@ -62,7 +62,6 @@ local function startFlying()
 	bodyGyro.Parent = rootPart
 	bodyVelocity.Parent = rootPart
 
-	humanoid.PlatformStand = true 
 end
 
 
@@ -72,7 +71,6 @@ local function stopFlying()
 
 	bodyGyro:Destroy()
 	bodyVelocity:Destroy()
-	humanoid.PlatformStand = false  
 end
 
 local function updateFlight()
@@ -99,7 +97,7 @@ uis.InputBegan:Connect(function(input: InputObject, gameProcessedEvent: boolean)
 	if gameProcessedEvent then return end
 
 	if input.KeyCode == Enum.KeyCode.LeftAlt then
-		toggle()
+		flying = not flying
 	elseif input.KeyCode == Enum.KeyCode.LeftBracket then
 		flySpeed = flySpeed + 5
 	elseif input.KeyCode == Enum.KeyCode.RightBracket then
@@ -108,8 +106,9 @@ uis.InputBegan:Connect(function(input: InputObject, gameProcessedEvent: boolean)
 end)
 game:GetService("RunService").RenderStepped:Connect(function()
 	Speed.Text = flySpeed
+	toggle()
 	if flying then
-		updateFlight()
+	updateFlight()
 	end
 end)
 -- freaky ass nigga hes 69 god
