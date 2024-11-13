@@ -97,4 +97,9 @@ game:GetService("RunService").RenderStepped:Connect(function()
 	end
 end)
 
+player.CharacterAdded:Connect(function())
+   Flygui:Destroy()
+end
+
+
 -- freaky ass nigga hes 69 god
