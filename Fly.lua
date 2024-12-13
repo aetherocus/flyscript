@@ -19,81 +19,144 @@ Speed.TextColor3 = Color3.fromRGB(255, 255, 255)
 Speed.TextScaled = true
 Speed.TextSize = 14.000
 Speed.TextWrapped = true
-
-local player = game.Players.LocalPlayer
-local mouse = player:GetMouse()
-local character = player.Character or player.CharacterAdded:Wait()
-local humanoid = character:WaitForChild("Humanoid")
-local rootPart = character:WaitForChild("HumanoidRootPart")
 local uis = game:GetService("UserInputService")
 local cas = game:GetService("ContextActionService")
+local player = game:GetService("Players").LocalPlayer
+local char = player.Character or player.CharacterAdded:Wait()
+
+local RS = game:GetService("RunService")
+local uis = game:GetService("UserInputService")
+
+local controls = {
+	W = 0,
+	A = 0,
+	S = 0,
+	D = 0,
+}
+
 local flying = false
-local flySpeed = 50
+local boosting = false
+local flyspeed = 50
 
-local bodyGyro
-local bodyVelocity
+local gyro
+local vel
+local thrust
 
-local function startFlying()
-	if flying then return end
-	flying = true
+local acceleration = Vector3.new(0,16,0)
+local lastframeacc = Vector3.zero
 
-	bodyGyro = Instance.new("BodyGyro")
-	bodyVelocity = Instance.new("BodyVelocity")
+local cam = game:GetService("Workspace").CurrentCamera
 
-	bodyGyro.MaxTorque = Vector3.new(400000, 400000, 400000) 
-	bodyGyro.CFrame = rootPart.CFrame
+local gyrocf = CFrame.new()
 
-	bodyVelocity.MaxForce = Vector3.new(400000, 400000, 400000)  
-	bodyVelocity.Velocity = Vector3.new(0, 0, 0)
+local flyfunc
 
-	bodyGyro.Parent = rootPart
-	bodyVelocity.Parent = rootPart
+local ts = game:GetService("TweenService")
 
-	humanoid.PlatformStand = true 
-end
+ local function Toggle()
+	if player.Character == nil then
+		return
+	end
+	if player.Character.Humanoid.Health <= 0 then
+		return
+	end
 
-
-local function stopFlying()
-	if not flying then return end
-	flying = false
-
-	bodyGyro:Destroy()
-	bodyVelocity:Destroy()
-	humanoid.PlatformStand = false  
-end
-
-local function updateFlight()
-	if not flying then return end
-
-
-	local targetPosition = mouse.Hit.p
-	local direction = (targetPosition - rootPart.Position).unit
-
-
-	bodyVelocity.Velocity = direction * flySpeed
-	bodyGyro.CFrame = CFrame.new(rootPart.Position, targetPosition)
-end
-
-uis.InputBegan:Connect(function(input: InputObject, gameProcessedEvent: boolean) 
-	if gameProcessedEvent then return end
-
-	if input.KeyCode == Enum.KeyCode.LeftAlt then
-		if flying then
-			stopFlying()
-		else
-			startFlying()
+	if flying == false then
+		char = player.Character
+		flying = true
+		gyro = Instance.new("BodyGyro")
+		gyro.MaxTorque = Vector3.new(40000,40000,40000)
+		gyro.D = 4
+		gyro.P = 30
+		gyro.Parent = char.PrimaryPart
+		gyro.CFrame = gyrocf
+		vel = Instance.new("BodyVelocity")
+		vel.Velocity = Vector3.new(0,0,0)
+		vel.P = flyspeed
+		vel.MaxForce = Vector3.new(40000,40000,40000)
+		vel.Parent = char.PrimaryPart
+		char.Humanoid.PlatformStand = true
+		acceleration = Vector3.new(0,16,0)
+		lastframeacc = Vector3.new(0,0,-1)
+		flyfunc = RS.Heartbeat:Connect(function(dt)
+			if player.Character == nil then
+	            Toggle()
+				return
+			end
+			if player.Character.PrimaryPart == nil then
+				Toggle()
+				return
+			end
+			local Direction = cam.CFrame:VectorToWorldSpace(Vector3.new(controls.A + controls.D, controls.W * 0.1 + controls.S * 0.1, controls.W + controls.S))
+			acceleration = acceleration:Lerp(lastframeacc + Direction * 72 * 60 / (1 / dt), 0.02)
+			gyro.CFrame = CFrame.lookAt(char.PrimaryPart.Position, char.PrimaryPart.Position + lastframeacc) * CFrame.Angles(-math.pi / 2 * math.clamp((Direction.Magnitude + acceleration.Magnitude) * 0.01, -1, 1), 0, 0)
+			vel.Velocity = acceleration
+			if Direction.Magnitude > 1 then
+				lastframeacc = acceleration * 0.05
+			end
+		end)
+	else
+		flying = false
+		char.Humanoid.PlatformStand = false
+		if gyro ~= nil then
+			gyro:Destroy()
+			gyro = nil
 		end
-	elseif input.KeyCode == Enum.KeyCode.LeftBracket then
-		flySpeed = flySpeed + 5
-	elseif input.KeyCode == Enum.KeyCode.RightBracket then
-		flySpeed = flySpeed - 5
+		if vel ~= nil then
+			vel:Destroy()
+			vel = nil
+		end
+		if flyfunc ~= nil then
+			flyfunc:Disconnect()
+			flyfunc = nil
+		end
+	end
+end
+
+uis.InputBegan:Connect(function(Input)
+	if Input.KeyCode == Enum.KeyCode.W then
+		controls.W = -1
+	end
+	if Input.KeyCode == Enum.KeyCode.A then
+		controls.A = -1
+	end
+	if Input.KeyCode == Enum.KeyCode.S then
+		controls.S = 1
+	end
+	if Input.KeyCode == Enum.KeyCode.D then
+		controls.D = 1
 	end
 end)
+
+uis.InputEnded:Connect(function(Input)
+	if Input.KeyCode == Enum.KeyCode.W then
+		controls.W = 0
+	end
+	if Input.KeyCode == Enum.KeyCode.A then
+		controls.A = 0
+	end
+	if Input.KeyCode == Enum.KeyCode.S then
+		controls.S = 0
+	end
+	if Input.KeyCode == Enum.KeyCode.D then
+		controls.D = 0
+	end
+end)
+
+uis.InputBegan:Connect(function(input, gameProcessed)
+	if not gameProcessed then -- Ensure the key press is not processed by the game UI
+		if input.KeyCode == Enum.KeyCode.E then
+		    Toggle()
+		elseif input.KeyCode == Enum.KeyCode.Z then
+		   flyspeed = flyspeed + 3
+		elseif input.KeyCode == Enum.KeyCode.X then
+		   flyspeed = flyspeed - 3
+		end
+	end
+end)
+
 game:GetService("RunService").RenderStepped:Connect(function()
 	Speed.Text = flySpeed
-	if flying then
-		updateFlight()
-	end
 end)
 
 
