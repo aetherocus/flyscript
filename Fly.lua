@@ -125,12 +125,13 @@ uis.InputBegan:Connect(function(input, gameProcessed)
 	if not gameProcessed then -- Ensure the key press is not processed by the game UI
 		if input.KeyCode == Enum.KeyCode.LeftAlt then
 		    Toggle()
-		elseif input.KeyCode == Enum.KeyCode.Z then
-		   flyspeed = flyspeed + 3
-		elseif input.KeyCode == Enum.KeyCode.X then
-		   flyspeed = flyspeed - 3
 		end
 	end
+end)
+
+char.Humanoid.Died:Connect(function()
+	flying = false
+	boosting = false
 end)
 
 
