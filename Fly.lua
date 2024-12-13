@@ -36,7 +36,7 @@ local controls = {
 
 local flying = false
 local boosting = false
-local flyspeed = 50
+local flyspeed = 3
 
 local gyro
 local vel
@@ -67,7 +67,7 @@ local ts = game:GetService("TweenService")
 		gyro = Instance.new("BodyGyro")
 		gyro.MaxTorque = Vector3.new(40000,40000,40000)
 		gyro.D = 4
-		gyro.P = flyspeed
+		gyro.P = 30
 		gyro.Parent = char.PrimaryPart
 		gyro.CFrame = gyrocf
 		vel = Instance.new("BodyVelocity")
@@ -92,7 +92,7 @@ local ts = game:GetService("TweenService")
 			gyro.CFrame = CFrame.lookAt(char.PrimaryPart.Position, char.PrimaryPart.Position + lastframeacc) * CFrame.Angles(-math.pi / 2 * math.clamp((Direction.Magnitude + acceleration.Magnitude) * 0.01, -1, 1), 0, 0)
 			vel.Velocity = acceleration
 			if Direction.Magnitude > 1 then
-				lastframeacc = acceleration * 0.05
+				lastframeacc = acceleration * flyspeed
 			end
 		end)
 	else
