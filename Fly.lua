@@ -1,24 +1,3 @@
-local Flygui = Instance.new("ScreenGui")
-local Speed = Instance.new("TextLabel")
-local COREGUI = game:GetService("CoreGui")
-
-Flygui.Parent = game.Players.LocalPlayer.PlayerGui
-Flygui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-
-Speed.Name = "Speed"
-Speed.Parent = Flygui
-Speed.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-Speed.BackgroundTransparency = 1.000
-Speed.BorderColor3 = Color3.fromRGB(0, 0, 0)
-Speed.BorderSizePixel = 0
-Speed.Position = UDim2.new(0, 0, 0.0804347843, 0)
-Speed.Size = UDim2.new(0.10080184, 0, 0.0673913062, 0)
-Speed.Font = Enum.Font.SourceSans
-Speed.Text = "0"
-Speed.TextColor3 = Color3.fromRGB(255, 255, 255)
-Speed.TextScaled = true
-Speed.TextSize = 14.000
-Speed.TextWrapped = true
 local uis = game:GetService("UserInputService")
 local cas = game:GetService("ContextActionService")
 local player = game:GetService("Players").LocalPlayer
@@ -36,7 +15,6 @@ local controls = {
 
 local flying = false
 local boosting = false
-local flyspeed = 3
 
 local gyro
 local vel
@@ -92,7 +70,7 @@ local ts = game:GetService("TweenService")
 			gyro.CFrame = CFrame.lookAt(char.PrimaryPart.Position, char.PrimaryPart.Position + lastframeacc) * CFrame.Angles(-math.pi / 2 * math.clamp((Direction.Magnitude + acceleration.Magnitude) * 0.01, -1, 1), 0, 0)
 			vel.Velocity = acceleration
 			if Direction.Magnitude > 1 then
-				lastframeacc = acceleration * flyspeed
+				lastframeacc = acceleration * 0.5
 			end
 		end)
 	else
@@ -154,11 +132,6 @@ uis.InputBegan:Connect(function(input, gameProcessed)
 		end
 	end
 end)
-
-game:GetService("RunService").RenderStepped:Connect(function()
-	Speed.Text = flyspeed
-end)
-
 
 
 -- freaky ass nigga hes 69 god
