@@ -156,7 +156,7 @@ uis.InputBegan:Connect(function(input, gameProcessed)
 end)
 
 game:GetService("RunService").RenderStepped:Connect(function()
-	Speed.Text = flySpeed
+	Speed.Text = flyspeed
 end)
 
 
